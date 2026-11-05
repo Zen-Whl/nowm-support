@@ -3,6 +3,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).parent
 ISSUES = 'https://github.com/Zen-Whl/nowm-support/issues'
+SUPPORT_EMAIL = 'nowm@atmoment.cn'
 GITHUB_POLICY = 'https://docs.github.com/en/site-policy/privacy-policies/github-general-privacy-statement'
 LANGUAGES = {
   'zh-Hans': ('简体中文','隐私政策','2026 年 11 月 5 日','NowM 由北京 AtMoment Culture Co., Ltd. 的 Apple 开发者账号发布。本政策说明 1.0 版本的实际功能。','设备上的内容','NowM 在设备上保存独处的开始与结束时间、时长，以及你主动写下的文字或录制的声音。文字按原样保存。应用不需要账号，也不提供云同步。我们无法从设备外读取这些记录。','收集与共享','应用不集成广告、分析或追踪工具，也不把记录发送到我们的服务器或第三方。只有在你主动录音时才请求麦克风权限；不请求位置、通讯录或健康数据。录音不经转写或上传。','系统备份','如果你启用 iPhone 系统备份，Apple 可能按照设备设置备份应用数据。NowM 不运营独立备份服务。','保留与删除','记录保留在设备上，直到你删除应用或设备数据。卸载应用会删除该设备上的本地数据；系统备份请在 iOS 设置中管理。','政策变更','如果将来加入云同步或其他数据功能，我们会在启用前更新本政策。','联系我们','如有问题或请求，请通过公开支持工单联系我们。提交工单需要 GitHub 账号，并受 GitHub 隐私声明约束。请勿发布私人文字或录音。','提交支持工单','GitHub 隐私声明'),
@@ -23,9 +24,9 @@ for code,v in LANGUAGES.items():
  (language,title,date,intro,h1,p1,h2,p2,h3,p3,h4,p4,h5,p5,h6,p6,issue_label,github_label)=v
  body=f'''<nav>{nav}</nav><h1>{escape(title)}</h1><small>{escape(date)}</small><p>{escape(intro)}</p>'''
  for heading,para in [(h1,p1),(h2,p2),(h3,p3),(h4,p4),(h5,p5)]:body+=f'<h2>{escape(heading)}</h2><p>{escape(para)}</p>'
- body+=f'<h2>{escape(h6)}</h2><p>{escape(p6)}</p><p><a href="{ISSUES}">{escape(issue_label)}</a> · <a href="{GITHUB_POLICY}">{escape(github_label)}</a></p>'
+ body+=f'<h2>{escape(h6)}</h2><p>{escape(p6)}</p><p><a href="mailto:{SUPPORT_EMAIL}">{SUPPORT_EMAIL}</a> · <a href="{ISSUES}">{escape(issue_label)}</a> · <a href="{GITHUB_POLICY}">{escape(github_label)}</a></p>'
  html=f'<!doctype html><html lang="{escape(code)}"><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>NowM · {escape(title)}</title><link rel="stylesheet" href="../style.css"><main>{body}</main></html>'
  (ROOT/'privacy'/f'{code}.html').write_text(html)
 home_nav = nav.replace('href="', 'href="privacy/')
-(ROOT/'index.html').write_text(f'<!doctype html><html lang="en"><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>NowM · Support</title><link rel="stylesheet" href="style.css"><main><h1>NowM · Support</h1><p>Private moments, kept on your device.</p><p><a href="{ISSUES}">Open a support issue</a> · <a href="{GITHUB_POLICY}">GitHub Privacy Statement</a></p><h2>Privacy policy</h2><nav>{home_nav}</nav></main></html>')
+(ROOT/'index.html').write_text(f'<!doctype html><html lang="en"><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>NowM · Support</title><link rel="stylesheet" href="style.css"><main><h1>NowM · Support</h1><p>Private moments, kept on your device.</p><p>Email: <a href="mailto:{SUPPORT_EMAIL}">{SUPPORT_EMAIL}</a> · <a href="{ISSUES}">Open a support issue</a> · <a href="{GITHUB_POLICY}">GitHub Privacy Statement</a></p><h2>Privacy policy</h2><nav>{home_nav}</nav></main></html>')
 (ROOT/'.nojekyll').write_text('')
